@@ -15,11 +15,35 @@ on:
     # Sequence of patterns matched against refs/tags
     tags:        
       - '*'
-    workflow_dispatch: 
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: '选择构建类型'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - server
+          - fabric
+          - forge
+          - neoforge
+      java_version:
+        description: '选择JDK版本'
+        required: false
+        default: 'auto'
+        type: choice
+        options:
+          - auto
+          - jdk8
+          - jdk17
+          - jdk21
 
 jobs:
   build_folia:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或server时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'server'))
     permissions:
       contents: read
     steps:
@@ -40,8 +64,11 @@ jobs:
       with:
         name: "allmusic_server_folia"
         path: build/libs/
+  
   build_bukkit:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或server时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'server'))
     permissions:
       contents: read
     steps:
@@ -62,8 +89,11 @@ jobs:
       with:
         name: "allmusic_server_bukkit"
         path: build/libs/
+  
   build_bungeecord_velocity:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或server时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'server'))
     permissions:
       contents: read
     steps:
@@ -84,8 +114,12 @@ jobs:
       with:
         name: "allmusic_server_bungeecord_velocity"
         path: build/libs/
+
+  # Fabric 构建作业组
   build_fabric_1_16_5:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或fabric时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'fabric'))
     permissions:
       contents: read
     steps:
@@ -106,8 +140,11 @@ jobs:
       with:
         name: "allmusic_server_fabric_1_16_5"
         path: build/libs/
+  
   build_fabric_1_18_2:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或fabric时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'fabric'))
     permissions:
       contents: read
     steps:
@@ -128,8 +165,11 @@ jobs:
       with:
         name: "allmusic_server_fabric_1_18_2"
         path: build/libs/
+  
   build_fabric_1_19_2:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或fabric时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'fabric'))
     permissions:
       contents: read
     steps:
@@ -150,8 +190,11 @@ jobs:
       with:
         name: "allmusic_server_fabric_1_19_2"
         path: build/libs/
+  
   build_fabric_1_20_1:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或fabric时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'fabric'))
     permissions:
       contents: read
     steps:
@@ -172,8 +215,11 @@ jobs:
       with:
         name: "allmusic_server_fabric_1_20_1"
         path: build/libs/
+  
   build_fabric_1_20_2:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或fabric时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'fabric'))
     permissions:
       contents: read
     steps:
@@ -194,8 +240,11 @@ jobs:
       with:
         name: "allmusic_server_fabric_1_20_2"
         path: build/libs/
+  
   build_fabric_1_20_6:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或fabric时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'fabric'))
     permissions:
       contents: read
     steps:
@@ -216,8 +265,11 @@ jobs:
       with:
         name: "allmusic_server_fabric_1_20_6"
         path: build/libs/
+  
   build_fabric_1_21:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或fabric时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'fabric'))
     permissions:
       contents: read
     steps:
@@ -238,8 +290,11 @@ jobs:
       with:
         name: "allmusic_server_fabric_1_21"
         path: build/libs/
+  
   build_fabric_1_21_4:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或fabric时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'fabric'))
     permissions:
       contents: read
     steps:
@@ -260,8 +315,11 @@ jobs:
       with:
         name: "allmusic_server_fabric_1_21_4"
         path: build/libs/
+  
   build_fabric_1_21_5:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或fabric时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'fabric'))
     permissions:
       contents: read
     steps:
@@ -282,8 +340,11 @@ jobs:
       with:
         name: "allmusic_server_fabric_1_21_5"
         path: build/libs/
+  
   build_fabric_1_21_6:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或fabric时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'fabric'))
     permissions:
       contents: read
     steps:
@@ -304,8 +365,12 @@ jobs:
       with:
         name: "allmusic_server_fabric_1_21_6"
         path: build/libs/
+
+  # Forge 构建作业组
   build_forge_1_7_10:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或forge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'forge'))
     permissions:
       contents: read
     steps:
@@ -326,8 +391,11 @@ jobs:
       with:
         name: "allmusic_server_forge_1_7_10"
         path: build/libs/
+  
   build_forge_1_12_2:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或forge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'forge'))
     permissions:
       contents: read
     steps:
@@ -348,8 +416,11 @@ jobs:
       with:
         name: "allmusic_server_forge_1_12_2"
         path: build/libs/
+  
   build_forge_1_16_5:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或forge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'forge'))
     permissions:
       contents: read
     steps:
@@ -370,8 +441,11 @@ jobs:
       with:
         name: "allmusic_server_forge_1_16_5"
         path: build/libs/
+  
   build_forge_1_18_2:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或forge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'forge'))
     permissions:
       contents: read
     steps:
@@ -392,8 +466,11 @@ jobs:
       with:
         name: "allmusic_server_forge_1_18_2"
         path: build/libs/
+  
   build_forge_1_19_2:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或forge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'forge'))
     permissions:
       contents: read
     steps:
@@ -414,8 +491,11 @@ jobs:
       with:
         name: "allmusic_server_forge_1_19_2"
         path: build/libs/
+  
   build_forge_1_20_1:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或forge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'forge'))
     permissions:
       contents: read
     steps:
@@ -436,8 +516,12 @@ jobs:
       with:
         name: "allmusic_server_forge_1_20_1"
         path: build/libs/
+
+  # NeoForge 构建作业组
   build_neoforge_1_20_4:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或neoforge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'neoforge'))
     permissions:
       contents: read
     steps:
@@ -458,8 +542,11 @@ jobs:
       with:
         name: "allmusic_server_neoforge_1_20_4"
         path: build/libs/
+  
   build_neoforge_1_20_5:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或neoforge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'neoforge'))
     permissions:
       contents: read
     steps:
@@ -480,8 +567,11 @@ jobs:
       with:
         name: "allmusic_server_neoforge_1_20_5"
         path: build/libs/
+  
   build_neoforge_1_21:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或neoforge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'neoforge'))
     permissions:
       contents: read
     steps:
@@ -502,8 +592,11 @@ jobs:
       with:
         name: "allmusic_server_neoforge_1_21"
         path: build/libs/
+  
   build_neoforge_1_21_4:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或neoforge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'neoforge'))
     permissions:
       contents: read
     steps:
@@ -524,8 +617,11 @@ jobs:
       with:
         name: "allmusic_server_neoforge_1_21_4"
         path: build/libs/
+  
   build_neoforge_1_21_5:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或neoforge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'neoforge'))
     permissions:
       contents: read
     steps:
@@ -546,8 +642,11 @@ jobs:
       with:
         name: "allmusic_server_neoforge_1_21_5"
         path: build/libs/
+  
   build_neoforge_1_21_6:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或neoforge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'neoforge'))
     permissions:
       contents: read
     steps:
@@ -568,8 +667,12 @@ jobs:
       with:
         name: "allmusic_server_neoforge_1_21_6"
         path: build/libs/
+
+  # OneJar 构建作业组
   build_onejar_fabric_1_21_6:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或fabric时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'fabric'))
     permissions:
       contents: read
     steps:
@@ -593,8 +696,11 @@ jobs:
       with:
         name: "allmusic_onejar_fabric_1_21_6"
         path: build/libs/
+  
   build_onejar_neoforge_1_21_6:
     runs-on: windows-latest
+    # 添加条件，只在构建所有或neoforge时运行
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.build_type == 'all' || inputs.build_type == 'neoforge'))
     permissions:
       contents: read
     steps:
